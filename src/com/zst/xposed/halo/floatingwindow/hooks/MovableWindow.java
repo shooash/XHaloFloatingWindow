@@ -102,8 +102,8 @@ public class MovableWindow {
 			@Override
 			protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
 				activity = (Activity) param.thisObject;
-				isHoloFloat = (activity.getIntent().getFlags() & Common.FLAG_FLOATING_WINDOW)
-						== Common.FLAG_FLOATING_WINDOW;
+				isHoloFloat = (activity.getIntent().getFlags() & mPref.getInt(Common.KEY_FLOATING_FLAG, Common.FLAG_FLOATING_WINDOW))
+						== mPref.getInt(Common.KEY_FLOATING_FLAG, Common.FLAG_FLOATING_WINDOW); //LUCINIAMOD
 				try {
 					XHFWInterface inf = XHFWService.retrieveService(activity);
 					//TODO reuse this

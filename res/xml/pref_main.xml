@@ -119,6 +119,14 @@
                 android:key="window_whiteblacklist_options"
                 android:summary="@string/pref_whiteblacklist_summary"
                 android:title="@string/pref_whiteblacklist_title" />
+
+        <com.zst.xposed.halo.floatingwindow.preferences.IntListPreference
+            android:defaultValue="8193"
+            android:entries="@array/option_floating_flags"
+            android:entryValues="@array/option_floating_flags_values"
+            android:key="floating_flag"
+            android:summary="@string/floating_flags_summary"
+            android:title="@string/floating_flags" />
     </PreferenceScreen>
 
      <!-- Screen 5: SystemUI -->

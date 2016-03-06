@@ -88,7 +88,8 @@ public class Common {
 	public static final String KEY_STATUSBAR_TASKBAR_RUNNING_APPS_ENABLED = "statusbar_taskbar_running_enabled";
 	public static final String KEY_STATUSBAR_TASKBAR_HIDE_ICON = "statusbar_taskbar_hide_icon";
 	public static final String KEY_STATUSBAR_TASKBAR_NUMBER = "statusbar_taskbar_number";
-	
+	//LUCINIAMOD Add floating flag option
+	public static final String KEY_FLOATING_FLAG = "floating_flag";
 
 	/* Preference defaults */
 	public static final float DEFAULT_ALPHA = 1f;

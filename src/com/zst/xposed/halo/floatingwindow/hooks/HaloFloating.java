@@ -167,8 +167,7 @@ public class HaloFloating {
 					// We don't need to waste time checking taskAffinity
 					// Just remove flag straight away
 					int intent_flag = intent.getFlags();
-					intent_flag &= ~Common.FLAG_FLOATING_WINDOW;
-					intent.setFlags(intent_flag);
+					intent_flag &= ~mPref.getInt(Common.KEY_FLOATING_FLAG, Common.FLAG_FLOATING_WINDOW);					intent.setFlags(intent_flag);
 					
 					mIsPreviousActivityHome = isCurrentActivityHome;
 					return;
@@ -182,16 +181,16 @@ public class HaloFloating {
 					taskHistoryList = (ArrayList<?>) /* ArrayList<ActivityRecord> */
 							XposedHelpers.getObjectField(activity_stack, "mHistory");
 				}
-				
-				boolean floatingFlag = (intent.getFlags() & Common.FLAG_FLOATING_WINDOW)
-						== Common.FLAG_FLOATING_WINDOW;
+
+				boolean floatingFlag = (intent.getFlags() & mPref.getInt(Common.KEY_FLOATING_FLAG, Common.FLAG_FLOATING_WINDOW))
+						== mPref.getInt(Common.KEY_FLOATING_FLAG, Common.FLAG_FLOATING_WINDOW); //LUCINIAMOD
 				
 				if (!floatingFlag && taskHistoryList != null && taskHistoryList.size() > 0 ) {
 					// pv = previous
 					Object pvRecord = taskHistoryList.get(taskHistoryList.size() - 1);
 					Intent pvIntent = (Intent) XposedHelpers.getObjectField(pvRecord, "intent");
-					boolean pvFloatFlag = !mIsPreviousActivityHome && 
-							(pvIntent.getFlags() & Common.FLAG_FLOATING_WINDOW) == Common.FLAG_FLOATING_WINDOW;
+					boolean pvFloatFlag = !mIsPreviousActivityHome &&
+							(pvIntent.getFlags() & mPref.getInt(Common.KEY_FLOATING_FLAG, Common.FLAG_FLOATING_WINDOW)) == mPref.getInt(Common.KEY_FLOATING_FLAG, Common.FLAG_FLOATING_WINDOW); //LUCINIAMOD
 					int pvSnapSide = AeroSnap.SNAP_NONE;
 					try {
 						pvSnapSide = pvIntent.getIntExtra(Common.EXTRA_SNAP_SIDE,
@@ -220,11 +219,11 @@ public class HaloFloating {
 				
 				if (mHasHaloFlag) {
 					int flags = intent.getFlags();
-					flags = flags | Common.FLAG_FLOATING_WINDOW;
+					flags = flags | mPref.getInt(Common.KEY_FLOATING_FLAG, Common.FLAG_FLOATING_WINDOW);
 					flags = flags | Intent.FLAG_ACTIVITY_NO_USER_ACTION;
 					flags &= ~Intent.FLAG_ACTIVITY_TASK_ON_HOME;
-					
-					if (!mPref.getBoolean(Common.KEY_SHOW_APP_IN_RECENTS, Common.DEFAULT_SHOW_APP_IN_RECENTS)) {
+
+					flags = flags | mPref.getInt(Common.KEY_FLOATING_FLAG, Common.FLAG_FLOATING_WINDOW);
 						flags = flags | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS;
 					} else if (mPref.getBoolean(Common.KEY_FORCE_APP_IN_RECENTS, Common.DEFAULT_FORCE_APP_IN_RECENTS)) {
 						flags &= ~Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS;
@@ -280,7 +279,7 @@ public class HaloFloating {
 				// TODO Find better whatsapp workaround.
 				try {
 					isHalo = (!nextIntent.getPackage().equals("com.whatsapp")) &&
-							(nextIntent.getFlags() & Common.FLAG_FLOATING_WINDOW) == Common.FLAG_FLOATING_WINDOW;
+							(nextIntent.getFlags() & mPref.getInt(Common.KEY_FLOATING_FLAG, Common.FLAG_FLOATING_WINDOW)) == mPref.getInt(Common.KEY_FLOATING_FLAG, Common.FLAG_FLOATING_WINDOW); //LUCINIAMOD
 				} catch (NullPointerException e) {
 					// if getPackage returns null
 				}
@@ -327,7 +326,7 @@ public class HaloFloating {
 					int launchFlags = (Integer) param.args[0];
 					if ((launchFlags & (Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME))
 							== (Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME)) {
-						boolean floating = (launchFlags & Common.FLAG_FLOATING_WINDOW) == Common.FLAG_FLOATING_WINDOW;
+						boolean floating = (launchFlags & mPref.getInt(Common.KEY_FLOATING_FLAG, Common.FLAG_FLOATING_WINDOW)) == mPref.getInt(Common.KEY_FLOATING_FLAG, Common.FLAG_FLOATING_WINDOW); //TLUCINIAMOD
 						if (floating) param.setResult(null);
 						// if the app is a floating app, and is a new task on home.
 						// then skip this method.
@@ -378,7 +377,7 @@ public class HaloFloating {
 			protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
 				Activity thiz = (Activity) param.thisObject;
 				Intent intent = thiz.getIntent();
-				isHoloFloat = (intent.getFlags() & Common.FLAG_FLOATING_WINDOW) == Common.FLAG_FLOATING_WINDOW;
+				isHoloFloat = (intent.getFlags() & mPref.getInt(Common.KEY_FLOATING_FLAG, Common.FLAG_FLOATING_WINDOW)) == mPref.getInt(Common.KEY_FLOATING_FLAG, Common.FLAG_FLOATING_WINDOW); //LUCINIAMOD
 				if (isHoloFloat) {
 					LayoutScaling.appleFloating(mPref, thiz.getWindow());
 				}
@@ -389,8 +388,8 @@ public class HaloFloating {
 			protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
 				Activity thiz = (Activity) param.thisObject;
 				Intent intent = thiz.getIntent();
-				isHoloFloat = (intent.getFlags() & Common.FLAG_FLOATING_WINDOW)
-						== Common.FLAG_FLOATING_WINDOW;
+				isHoloFloat = (intent.getFlags() & mPref.getInt(Common.KEY_FLOATING_FLAG, Common.FLAG_FLOATING_WINDOW))
+						== mPref.getInt(Common.KEY_FLOATING_FLAG, Common.FLAG_FLOATING_WINDOW);//LUCINIAMOD
 			}
 		});
 	}

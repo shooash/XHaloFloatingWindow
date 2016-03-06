@@ -33,7 +33,9 @@ public class RecentAppsHook {
 	static final int ID_REMOVE_FROM_LIST = 1000;
 	static final int ID_APP_INFO = 2000;
 	static final int ID_OPEN_IN_HALO = 3000;
-	
+
+	static XSharedPreferences mPref;
+
 	public static void initZygote(XModuleResources module_res) {
 		TEXT_APP_INFO = module_res.getString(R.string.recents_app_info);
 		TEXT_OPEN_IN_HALO = module_res.getString(R.string.recents_open_halo);
@@ -96,7 +98,7 @@ public class RecentAppsHook {
 									closeRecentApps(thiz);
 									Object ad = XposedHelpers.getObjectField(viewHolder, "taskDescription");
 									final Intent intent = (Intent) XposedHelpers.getObjectField(ad, "intent");
-									intent.addFlags(Common.FLAG_FLOATING_WINDOW
+									intent.addFlags(mPref.getInt(Common.KEY_FLOATING_FLAG, Common.FLAG_FLOATING_WINDOW)
 											| Intent.FLAG_ACTIVITY_MULTIPLE_TASK
 											| Intent.FLAG_ACTIVITY_NO_USER_ACTION
 											| Intent.FLAG_ACTIVITY_NEW_TASK);

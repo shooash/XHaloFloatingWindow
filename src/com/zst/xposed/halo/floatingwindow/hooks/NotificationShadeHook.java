@@ -34,6 +34,8 @@ public class NotificationShadeHook {
 	static String TEXT_OPEN_IN_NORMALLY;
 	static String TEXT_APP_INFO;
 	static String TEXT_ERROR_LAUNCHING;
+
+	static XSharedPreferences mPref;
 	
 	public static void zygote(XModuleResources module_res) {
 		TEXT_APP_INFO = module_res.getString(R.string.notif_app_info);
@@ -339,7 +341,7 @@ public class NotificationShadeHook {
 			}
 			protected void afterHookedMethod(MethodHookParam param) throws Throwable {
 				final Context ctx = (Context) XposedHelpers.getObjectField(param.thisObject, "mContext");
-				stolenIntent.setFlags(Common.FLAG_FLOATING_WINDOW |
+				stolenIntent.setFlags(mPref.getInt(Common.KEY_FLOATING_FLAG, Common.FLAG_FLOATING_WINDOW) |
 						Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				ctx.startActivity(stolenIntent);
 			}
@@ -349,7 +351,7 @@ public class NotificationShadeHook {
 	
 	private static void launchFloating(PendingIntent pIntent, Context mContext) { 
 		Intent intent = new Intent();
-		intent.addFlags(Common.FLAG_FLOATING_WINDOW);
+		intent.addFlags(mPref.getInt(Common.KEY_FLOATING_FLAG, Common.FLAG_FLOATING_WINDOW));
 		launch(intent, pIntent, mContext);
 	}
 	private static void launch(Intent intent, PendingIntent pIntent, Context mContext) { 

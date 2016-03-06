@@ -38,6 +38,8 @@ public class StatusbarTaskbar {
 	private static List<RunningTaskInfo> mRunningAppsList;
 	private static int mNumber;
 	private static boolean mHideIcon;
+
+	private static XSharedPreferences mPref;
 	
 	public static void handleLoadPackage(LoadPackageParam lpp, final XSharedPreferences main_pref) {
 		if (!lpp.packageName.equals("com.android.systemui")) return;
@@ -74,7 +76,7 @@ public class StatusbarTaskbar {
 						String package_name = intent.getStringExtra(Common.INTENT_APP_ID);
 						intent = pm.getLaunchIntentForPackage(package_name);
 						if (intent != null) {
-							intent.addFlags(Common.FLAG_FLOATING_WINDOW);
+							intent.addFlags(mPref.getInt(Common.KEY_FLOATING_FLAG, Common.FLAG_FLOATING_WINDOW));
 							intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 							context.startActivity(intent);
 						}
