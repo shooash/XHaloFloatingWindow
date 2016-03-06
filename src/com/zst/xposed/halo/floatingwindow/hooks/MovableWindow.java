@@ -573,13 +573,15 @@ public class MovableWindow {
 	private static void changeFocusApp(Activity a) {
 		//XHFWMOD fix Evernote bug
 		refreshLayoutParams(a, a.getPackageName());
-		try {
+		//XHFWMOD disable temporary to minimize errors
+		//TODO fix null token for IBinder
+		/*try {
 			XHFWInterface inf = XHFWService.retrieveService(a);
 			//TODO reuse this
 			inf.bringAppToFront(getActivityToken(a), a.getTaskId());
 		} catch (RemoteException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 	private void updateView(Window mWindow, float x, float y) {
