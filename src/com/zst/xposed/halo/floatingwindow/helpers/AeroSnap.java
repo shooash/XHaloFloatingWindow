@@ -226,6 +226,7 @@ public class AeroSnap {
 	
 	public void restoreOldPositionWithoutRefresh() {
 		if (!mSnapped) return;
+		refreshScreenSize();//this was added to fix wrong layout on orientation changed
 		WindowManager.LayoutParams params = mWindow.getAttributes();
 		params.x = mOldLayout[0];
 		params.y = mOldLayout[1];
@@ -319,5 +320,9 @@ public class AeroSnap {
 	
 	public static boolean isSnapped() {
 		return mSnapped;
+	}
+
+	public int getSnap(){
+		return mSnap;
 	}
 }

@@ -491,6 +491,32 @@ public class MovableWindow {
 				if (intent.getAction().equals(Intent.ACTION_CONFIGURATION_CHANGED)) {
 					Configuration config = window.getContext().getResources().getConfiguration();
 					if (config.orientation != mPreviousOrientation) {
+						//FIX lost snap on changed orientation
+						if((config.orientation == Configuration.ORIENTATION_PORTRAIT)&&(AeroSnap.isSnapped())){
+						switch(mAeroSnap.getSnap()){
+							case AeroSnap.SNAP_LEFT:
+							case AeroSnap.SNAP_TOP:
+								mAeroSnap.forceSnap(AeroSnap.SNAP_TOP);
+								break;
+							case AeroSnap.SNAP_RIGHT:
+							case AeroSnap.SNAP_BOTTOM:
+								mAeroSnap.forceSnap(AeroSnap.SNAP_BOTTOM);
+								break;
+						}
+						}
+						if((config.orientation == Configuration.ORIENTATION_LANDSCAPE)&&(AeroSnap.isSnapped())){
+						switch(mAeroSnap.getSnap()){
+							case AeroSnap.SNAP_LEFT:
+							case AeroSnap.SNAP_TOP:
+								mAeroSnap.forceSnap(AeroSnap.SNAP_LEFT);
+								break;
+							case AeroSnap.SNAP_RIGHT:
+							case AeroSnap.SNAP_BOTTOM:
+								mAeroSnap.forceSnap(AeroSnap.SNAP_RIGHT);
+								break;
+						}
+						}
+						//END FIX lost snap on changed orientation
 						WindowManager.LayoutParams paramz = window.getAttributes();
 						final int old_x = paramz.x;
 						final int old_y = paramz.y;
