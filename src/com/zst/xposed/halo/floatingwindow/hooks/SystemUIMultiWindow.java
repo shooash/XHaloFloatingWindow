@@ -177,8 +177,8 @@ public class SystemUIMultiWindow {
 		@Override
 		public void onClick(View v) {
 			if (mIsFingerDraggingBar) return;
-			
-			MultiWindowViewManager.MWPopupButtons popup = 
+			//XHFWMOD disable to fix build error on some ide"s and outliner overlay hanging on touch
+			/*MultiWindowViewManager.MWPopupButtons popup = 
 					mViewManager.new MWPopupButtons(mViewManager.mViewContent) {
 				@Override
 				public void onCloseButton() {
@@ -218,7 +218,7 @@ public class SystemUIMultiWindow {
 					resetDraggerViewPosition();
 				}
 			};
-			popup.display();
+			popup.display();*/
 	    }   
 	};
 	
