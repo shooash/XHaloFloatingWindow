@@ -184,6 +184,8 @@ public class MovableWindow {
 				MultiWindowAppManager.setWindow(activity.getWindow());
 				// register listener for multiwindow dragger
 				MultiWindowAppManager.appsRegisterListener(activity, true);
+				//XHFWMOD Evernote bug
+				refreshLayoutParams(activity, activity.getPackageName());
 			}
 		});
 
@@ -569,6 +571,8 @@ public class MovableWindow {
 	/* (End) Layout Position Method Helpers */
 
 	private static void changeFocusApp(Activity a) {
+		//XHFWMOD fix Evernote bug
+		refreshLayoutParams(a, a.getPackageName());
 		try {
 			XHFWInterface inf = XHFWService.retrieveService(a);
 			//TODO reuse this
