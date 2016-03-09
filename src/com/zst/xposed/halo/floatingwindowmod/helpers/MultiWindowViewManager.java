@@ -84,11 +84,7 @@ public class MultiWindowViewManager {
 		mViewContent = new ImageView(mContext);
 		mViewContent.setImageDrawable(Util.makeCircle(mColor, mCircleDiameter));
 		
-		DisplayMetrics metrics = new DisplayMetrics();
-		Display display = getWM().getDefaultDisplay();
-		display.getMetrics(metrics);
-		mScreenWidth = metrics.widthPixels;
-		mScreenHeight = metrics.heightPixels;
+		refreshScreenSize();
 				
 		mContentParamz = new WindowManager.LayoutParams(
 				mCircleDiameter,
@@ -247,7 +243,8 @@ public class MultiWindowViewManager {
 	public void setFocusedAppPosition(int side, int pixels_from_edge, boolean top_bottom_split) {
 		mPreviousFocusAppTopBottomSplit = top_bottom_split;
 		mPreviousFocusAppSide = side;
-		
+
+		refreshScreenSize();
 		final int outline_thickness = Util.dp(6, mContext);
 		// TODO make option to change thickness
 		if (mViewFocusOutline == null) {
@@ -268,6 +265,7 @@ public class MultiWindowViewManager {
 		params.type = WindowManager.LayoutParams.TYPE_PHONE;
 		params.x = 0;
 		params.y = 0;
+
 		switch (side) {
 		case AeroSnap.SNAP_TOP:
 			if (!top_bottom_split) {
@@ -531,5 +529,13 @@ public class MultiWindowViewManager {
 		}
 		
 		
+	}
+
+	private void refreshScreenSize(){
+		DisplayMetrics metrics = new DisplayMetrics();
+		Display display = getWM().getDefaultDisplay();
+		display.getMetrics(metrics);
+		mScreenWidth = metrics.widthPixels;
+		mScreenHeight = metrics.heightPixels;
 	}
 }

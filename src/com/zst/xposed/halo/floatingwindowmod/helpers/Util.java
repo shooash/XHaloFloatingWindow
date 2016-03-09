@@ -114,4 +114,10 @@ public class Util {
 		 * we need this to speed up our resizing */
 		// params.privateFlags |= 0x00000040; //PRIVATE_FLAG_NO_MOVE_ANIMATION
 	}
+
+	//This is like Calendar.roll for ints
+	public static int rollInt(int current, int max, int delta){
+		max++;
+		return (current + delta + max)%max;
+	}
 }

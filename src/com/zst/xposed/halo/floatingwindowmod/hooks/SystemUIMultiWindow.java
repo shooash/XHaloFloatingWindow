@@ -53,10 +53,17 @@ public class SystemUIMultiWindow {
 	private static LinkedHashSet<String> mBottomList = new LinkedHashSet<String>();
 	private static LinkedHashSet<String> mLeftList = new LinkedHashSet<String>();
 	private static LinkedHashSet<String> mRightList = new LinkedHashSet<String>();
+	// App Snap 4way Lists 4WAYMOD
+	private static LinkedHashSet<String> mTopLeftList = new LinkedHashSet<String>();
+	private static LinkedHashSet<String> mTopRightList = new LinkedHashSet<String>();
+	private static LinkedHashSet<String> mBottomLeftList = new LinkedHashSet<String>();
+	private static LinkedHashSet<String> mBottomRightList = new LinkedHashSet<String>();
 	
 	// Window Management Values
 	private static boolean isSplitView;
 	private static boolean mTopBottomSplit;
+	//4WAYMOD top,right,bottom,left
+	private static boolean[] mSplits = {false,false,false,false};
 	private static boolean mIsFingerDraggingBar;
 	private static int mPixelsFromEdge = -1;
 	private static float mPixelsFromSideX;
@@ -100,7 +107,12 @@ public class SystemUIMultiWindow {
 							mBottomList.remove(pkg_name);
 							mLeftList.remove(pkg_name);
 							mRightList.remove(pkg_name);
-							showDragger(mViewManager.mPreviousFocusAppTopBottomSplit);
+							//4WAYMOD
+							mTopLeftList.remove(pkg_name);
+							mTopRightList.remove(pkg_name);
+							mBottomLeftList.remove(pkg_name);
+							mBottomRightList.remove(pkg_name);
+							showDragger();
 						}
 					};
 				}
@@ -136,24 +148,42 @@ public class SystemUIMultiWindow {
 			mBottomList.remove(pkg_name);
 			mLeftList.remove(pkg_name);
 			mRightList.remove(pkg_name);
+			//4WAYMOD
+			mTopLeftList.remove(pkg_name);
+			mTopRightList.remove(pkg_name);
+			mBottomLeftList.remove(pkg_name);
+			mBottomRightList.remove(pkg_name);
 			// Clean pkg name from the list if it is not already removed
 			
 			switch (snap_side) {
-			case AeroSnap.SNAP_TOP:
-				mTopList.add(pkg_name);
-				break;
-			case AeroSnap.SNAP_BOTTOM:
-				mBottomList.add(pkg_name);
-				break;
-			case AeroSnap.SNAP_LEFT:
-				mLeftList.add(pkg_name);
-				break;
-			case AeroSnap.SNAP_RIGHT:
-				mRightList.add(pkg_name);
-				break;
-			case AeroSnap.SNAP_NONE:
-				hideDragger();
-				return;
+				case AeroSnap.SNAP_TOP:
+					mTopList.add(pkg_name);
+					break;
+				case AeroSnap.SNAP_BOTTOM:
+					mBottomList.add(pkg_name);
+					break;
+				case AeroSnap.SNAP_LEFT:
+					mLeftList.add(pkg_name);
+					break;
+				case AeroSnap.SNAP_RIGHT:
+					mRightList.add(pkg_name);
+					break;
+				//4WAYMOD
+				case AeroSnap.SNAP_TOPLEFT:
+					mTopLeftList.add(pkg_name);
+					break;
+				case AeroSnap.SNAP_TOPRIGHT:
+					mTopRightList.add(pkg_name);
+					break;
+				case AeroSnap.SNAP_BOTTOMLEFT:
+					mBottomLeftList.add(pkg_name);
+					break;
+				case AeroSnap.SNAP_BOTTOMRIGHT:
+					mBottomRightList.add(pkg_name);
+					break;
+				case AeroSnap.SNAP_NONE:
+					hideDragger();
+					return;
 			}
 			if (checkIfDraggerHideNeeded(snap_side)) {
 				hideDragger();
@@ -258,21 +288,42 @@ public class SystemUIMultiWindow {
 	
 	// check if the current window snapping is suitable for our dragger
 	private static void checkIfDraggerShowNeeded(int current_app_snap) {
+		//4WAY make 3 more separators
+		if (mTopLeftList.size() > 0) mSplits[0] = mSplits[3] = true;
+		if (mTopRightList.size() > 0) mSplits[0] = mSplits[1] = true;
+		if (mBottomLeftList.size() > 0) mSplits[2] = mSplits[3] = true;
+		if (mBottomRightList.size() > 0) mSplits[2] = mSplits[1] = true;
 		if (mTopList.size() > 0 && mBottomList.size() > 0) {
-			if (current_app_snap == AeroSnap.SNAP_TOP ||
-				current_app_snap == AeroSnap.SNAP_BOTTOM) {
-				// If the current app is left or right, it means the detected
-				// apps in the lists are below the current app. 
+			if (current_app_snap == AeroSnap.SNAP_TOP){
 				mTopBottomSplit = true;
-				showDragger(true);
-			}			
-		} else if (mLeftList.size() > 0 && mRightList.size() > 0) {
-			if (current_app_snap == AeroSnap.SNAP_LEFT ||
-				current_app_snap == AeroSnap.SNAP_RIGHT) {
-				// If the current app is top or bottom, it means the detected
-				// apps in the lists are below the current app. 
+				//4WAYMOD
+				mSplits[0] = false;
+				mSplits[1] = mSplits[3] = true;
+				showDragger();
+			} else if (current_app_snap == AeroSnap.SNAP_BOTTOM) {
+				// If the current app is left or right, it means the detected
+				// apps in the lists are below the current app.
+				mTopBottomSplit = true;
+				//4WAYMOD
+				mSplits[2] = false;
+				mSplits[1] = mSplits[3] = true;
+				showDragger();
+			}
+		} if (mLeftList.size() > 0 && mRightList.size() > 0) {
+			if (current_app_snap == AeroSnap.SNAP_LEFT) {
 				mTopBottomSplit = false;
-				showDragger(false);
+				//4WAYMOD
+				mSplits[3]=false;
+				mSplits[0] = mSplits[2] = true;
+				showDragger();
+			} else if(current_app_snap == AeroSnap.SNAP_RIGHT) {
+				// If the current app is top or bottom, it means the detected
+				// apps in the lists are below the current app.
+				mTopBottomSplit = false;
+				//4WAYMOD
+				mSplits[1]=false;
+				mSplits[0] = mSplits[2] = true;
+				showDragger();
 			}
 		} else {
 			return;
@@ -301,7 +352,43 @@ public class SystemUIMultiWindow {
 		// If it doesn't correspond, we will reach here
 		return true;
 	}
-	
+
+	private static void showDragger() {
+		isSplitView = true;
+		if (!(mUseOldDraggerLocation && mViewManager.mViewContent != null)) {
+			// if we need to use old location, don't recreate the view again
+			mViewManager.setColor(mColor);
+			mViewManager.createDraggerView();
+			mViewManager.mViewContent.setOnTouchListener(DRAG_LISTENER);
+			mViewManager.mViewContent.setOnClickListener(DRAGGER_MENU);
+		}
+
+		if (mUseOldDraggerLocation && mPixelsFromEdge != -1) {
+			if (mSplits[0]&&mSplits[2]){
+				mViewManager.mContentParamz.x = (int) (mPixelsFromEdge -
+						(0.5f * mViewManager.mCircleDiameter));
+				mViewManager.mContentParamz.y = (int) (mPixelsFromSideY -
+						(0.5f * mViewManager.mCircleDiameter));
+			}
+			else if (mSplits[1]&&mSplits[3]) {
+				mViewManager.mContentParamz.y = (int) (mPixelsFromEdge -
+						(0.5f * mViewManager.mCircleDiameter));
+				mViewManager.mContentParamz.x = (int) (mPixelsFromSideX -
+						(0.5f * mViewManager.mCircleDiameter));
+			}
+			//TODO get rid of pixels from edge
+			mUseOldDraggerLocation = false;
+		} else {
+			if (mSplits[1]&&mSplits[3]) {
+				mPixelsFromEdge = mViewManager.mScreenHeight / 2;
+			} else if (mSplits[0]&&mSplits[2]) {
+				mPixelsFromEdge = mViewManager.mScreenWidth / 2;
+			}
+		}
+
+		mViewManager.updateDraggerView(true);
+	}
+
 	private static void showDragger(boolean top_bottom) {
 		isSplitView = true;
 		
@@ -376,6 +463,21 @@ public class SystemUIMultiWindow {
 		intent.putExtra(Common.INTENT_APP_SNAP, top_bottom); 
 		// Top-Bottom or Left-Right App Splitting?
 		intent.putExtra(Common.INTENT_APP_PARAMS, pixels); 
+		// pixels from top/left where the dragger is
+		intent.putExtra(Common.INTENT_APP_EXTRA, 0);
+		// TODO: REMOVE - previously was the extra space so app is not overlapped
+		// by dragger bar, but it is now unused after the new design
+		intent.putExtra(Common.INTENT_APP_SWAP, swap);
+		// tell app to swap position
+		intent.putExtra(Common.INTENT_APP_TIME, System.currentTimeMillis());
+		mContext.sendBroadcast(intent);
+	}
+
+	private static void sendWindowInfo(boolean top_bottom, int pixels_top, int pixels_left, boolean swap) {
+		Intent intent = new Intent(Common.SEND_MULTIWINDOW_INFO);
+		intent.putExtra(Common.INTENT_APP_SNAP, top_bottom);
+		// Top-Bottom or Left-Right App Splitting?
+		intent.putExtra(Common.INTENT_APP_PARAMS, new int[]{pixels_top, pixels_left});
 		// pixels from top/left where the dragger is
 		intent.putExtra(Common.INTENT_APP_EXTRA, 0);
 		// TODO: REMOVE - previously was the extra space so app is not overlapped

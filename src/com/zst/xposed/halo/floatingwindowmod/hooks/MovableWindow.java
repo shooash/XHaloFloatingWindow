@@ -27,6 +27,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -34,6 +35,10 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedBridge;
@@ -65,6 +70,7 @@ public class MovableWindow {
 	static boolean mRetainStartPosition;
 	static boolean mConstantMovePosition;
 	static int mPreviousOrientation;
+	static int mPreviousRotation;
 	
 	public static MovableOverlayView mOverlayView;
 	public static boolean mMaximizeChangeTitleBarVisibility;
@@ -129,6 +135,10 @@ public class MovableWindow {
 				mPreviousOrientation = activity.getResources().getConfiguration().orientation;
 				mMinimizeToStatusbar = mPref.getBoolean(Common.KEY_MINIMIZE_APP_TO_STATUSBAR,
 						Common.DEFAULT_MINIMIZE_APP_TO_STATUSBAR);
+				//4WAYMOD
+				Display display = ((WindowManager) activity.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+				mPreviousRotation = display.getRotation();
+
 
 				mAeroSnapEnabled = mPref.getBoolean(Common.KEY_WINDOW_RESIZING_AERO_SNAP_ENABLED,
 						Common.DEFAULT_WINDOW_RESIZING_AERO_SNAP_ENABLED);
@@ -488,35 +498,18 @@ public class MovableWindow {
 		BroadcastReceiver br = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context context, Intent intent) {
+				ArrayList<Integer> PART = new ArrayList<Integer>(Arrays.asList(AeroSnap.SNAP_TOPLEFT, AeroSnap.SNAP_TOP, AeroSnap.SNAP_TOPRIGHT, AeroSnap.SNAP_RIGHT, AeroSnap.SNAP_BOTTOMRIGHT, AeroSnap.SNAP_BOTTOM, AeroSnap.SNAP_BOTTOMLEFT, AeroSnap.SNAP_LEFT));
+
 				if (intent.getAction().equals(Intent.ACTION_CONFIGURATION_CHANGED)) {
 					Configuration config = window.getContext().getResources().getConfiguration();
-					if (config.orientation != mPreviousOrientation) {
-						//FIX lost snap on changed orientation
-						if((config.orientation == Configuration.ORIENTATION_PORTRAIT)&&(AeroSnap.isSnapped())){
-						switch(mAeroSnap.getSnap()){
-							case AeroSnap.SNAP_LEFT:
-							case AeroSnap.SNAP_TOP:
-								mAeroSnap.forceSnap(AeroSnap.SNAP_TOP);
-								break;
-							case AeroSnap.SNAP_RIGHT:
-							case AeroSnap.SNAP_BOTTOM:
-								mAeroSnap.forceSnap(AeroSnap.SNAP_BOTTOM);
-								break;
-						}
-						}
-						if((config.orientation == Configuration.ORIENTATION_LANDSCAPE)&&(AeroSnap.isSnapped())){
-						switch(mAeroSnap.getSnap()){
-							case AeroSnap.SNAP_LEFT:
-							case AeroSnap.SNAP_TOP:
-								mAeroSnap.forceSnap(AeroSnap.SNAP_LEFT);
-								break;
-							case AeroSnap.SNAP_RIGHT:
-							case AeroSnap.SNAP_BOTTOM:
-								mAeroSnap.forceSnap(AeroSnap.SNAP_RIGHT);
-								break;
-						}
-						}
-						//END FIX lost snap on changed orientation
+					//4WAYMOD
+					Display display = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+					int newRotation = display.getRotation();
+					if(newRotation != mPreviousRotation) {
+						int newsnap = PART.get( Util.rollInt(PART.indexOf(mAeroSnap.getSnap()),PART.size()-1,-(newRotation-mPreviousRotation)*2));
+						mAeroSnap.forceSnap(newsnap);
+						mPreviousRotation = newRotation;
+
 						WindowManager.LayoutParams paramz = window.getAttributes();
 						final int old_x = paramz.x;
 						final int old_y = paramz.y;

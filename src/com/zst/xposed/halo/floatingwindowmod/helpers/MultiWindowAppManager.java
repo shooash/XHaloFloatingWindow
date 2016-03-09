@@ -80,15 +80,39 @@ public class MultiWindowAppManager {
 				return;
 			}
 			mPreviousTimeOfReceiver = current_time;
-			
-			int pixels_from_edge = intent.getIntExtra(Common.INTENT_APP_PARAMS, 100);
-			int pixels_offset_from_dragger = intent.getIntExtra(Common.INTENT_APP_EXTRA, 10);
-			// extra space so app is not overlapped by dragger bar
+
+			int[] pixels = intent.getIntArrayExtra(Common.INTENT_APP_PARAMS);
+			int pixels_top;
+			int pixels_left;
+			if(pixels == null) {
+				pixels_top = intent.getIntExtra(Common.INTENT_APP_PARAMS, 100);
+				pixels_left = 0;
+			} else {
+				pixels_top=pixels[0];
+				pixels_left=pixels[1];
+			}
+
 			boolean top_bottom = intent.getBooleanExtra(Common.INTENT_APP_SNAP, true);
 			
 			if (intent.getBooleanExtra(Common.INTENT_APP_SWAP, false)) {
+				switch (mSnappedSide) {
+					case AeroSnap.SNAP_TOP:
+						mSnappedSide = AeroSnap.SNAP_BOTTOM;
+						break;
+					case AeroSnap.SNAP_BOTTOM:
+						mSnappedSide = AeroSnap.SNAP_TOP;
+						break;
+					case AeroSnap.SNAP_LEFT:
+						mSnappedSide = AeroSnap.SNAP_RIGHT;
+						break;
+					case AeroSnap.SNAP_RIGHT:
+						mSnappedSide = AeroSnap.SNAP_LEFT;
+						break;
+				}
+			}
+			scaleWindow(mSnappedSide, pixels_top, pixels_left);
 				// We must swap positions
-				if (top_bottom) {
+				/*if (top_bottom) {
 					if (mSnappedSide == AeroSnap.SNAP_TOP) {
 						mSnappedSide = AeroSnap.SNAP_BOTTOM;
 						mCachedSnappedSide = AeroSnap.SNAP_BOTTOM;
@@ -110,9 +134,10 @@ public class MultiWindowAppManager {
 					}
 				}
 				return;
-			}
+			}*/
 			
-			if (top_bottom) {
+			/*if (top_bottom) {
+				//TODO USE SNAP SIDE
 				// Check if we are top or bottom app.
 				if (mSnappedSide == AeroSnap.SNAP_TOP) {
 					scaleWindow(true, true, pixels_from_edge);
@@ -126,7 +151,7 @@ public class MultiWindowAppManager {
 				} else if (mSnappedSide == AeroSnap.SNAP_RIGHT) {
 					scaleWindow(false, false, pixels_from_edge + pixels_offset_from_dragger);
 				}
-			}
+			}*/
 		}
 	};
 	
@@ -181,8 +206,78 @@ public class MultiWindowAppManager {
 		context.sendBroadcast(intent);
 		// Send currently focused app's position
 	}
-	
-	private static void scaleWindow(boolean top_bottom, boolean closest_to_edge,
+
+	private static void scaleWindow(int snap, int pixels_top,
+									int pixels_left) {
+		DisplayMetrics metrics = new DisplayMetrics();
+		Display display = mWindowManager.getDefaultDisplay();
+		display.getMetrics(metrics);
+
+		WindowManager.LayoutParams lpp = mWindow.getAttributes();
+		switch (snap){
+			case AeroSnap.SNAP_TOP:
+				lpp.width = metrics.widthPixels;
+				lpp.height = pixels_top;
+				lpp.gravity = Gravity.TOP | Gravity.LEFT;
+				lpp.x = 0;
+				lpp.y = 0;
+				break;
+			case AeroSnap.SNAP_BOTTOM:
+				lpp.width = metrics.widthPixels;
+				lpp.height = metrics.heightPixels - pixels_top;
+				lpp.gravity = Gravity.TOP | Gravity.LEFT;
+				lpp.x = 0;
+				lpp.y = pixels_top;
+				break;
+			case AeroSnap.SNAP_LEFT:
+				lpp.width = pixels_left;
+				lpp.height = metrics.heightPixels;
+				lpp.gravity = Gravity.TOP | Gravity.LEFT;
+				lpp.x = 0;
+				lpp.y = 0;
+				break;
+			case AeroSnap.SNAP_RIGHT:
+				lpp.width = metrics.widthPixels - pixels_left;
+				lpp.height = metrics.heightPixels;
+				lpp.gravity = Gravity.TOP | Gravity.LEFT;
+				lpp.x = pixels_left;
+				lpp.y = 0;
+				break;
+			case AeroSnap.SNAP_TOPLEFT:
+				lpp.width = pixels_left;
+				lpp.height = pixels_top;
+				lpp.gravity = Gravity.TOP | Gravity.LEFT;
+				lpp.x = 0;
+				lpp.y = 0;
+				break;
+			case AeroSnap.SNAP_TOPRIGHT:
+				lpp.width = metrics.widthPixels - pixels_left;
+				lpp.height = pixels_top;
+				lpp.gravity = Gravity.TOP | Gravity.LEFT;
+				lpp.x = pixels_left;
+				lpp.y = 0;
+				break;
+			case AeroSnap.SNAP_BOTTOMLEFT:
+				lpp.width = pixels_left;
+				lpp.height = metrics.heightPixels - pixels_top;
+				lpp.gravity = Gravity.TOP | Gravity.LEFT;
+				lpp.x = 0;
+				lpp.y = pixels_top;
+				break;
+			case AeroSnap.SNAP_BOTTOMRIGHT:
+				lpp.width = metrics.widthPixels - pixels_left;
+				lpp.height = metrics.heightPixels - pixels_top;
+				lpp.gravity = Gravity.TOP | Gravity.LEFT;
+				lpp.x = pixels_left;
+				lpp.y = pixels_top;
+				break;
+		}
+
+		mWindow.setAttributes(lpp);
+		refreshLayout();
+	}
+
+	/*private static void scaleWindow(boolean top_bottom, boolean closest_to_edge,
 			int pixels_from_edge) {
 		DisplayMetrics metrics = new DisplayMetrics();
 		Display display = mWindowManager.getDefaultDisplay();
@@ -208,7 +303,7 @@ public class MultiWindowAppManager {
 		}
 		mWindow.setAttributes(lpp);
 		refreshLayout();
-	}
+	}*/
 	
 	private static void refreshLayout() {
 		MovableWindow.initAndRefreshLayoutParams(mWindow, mWindow.getContext(), mWindow
