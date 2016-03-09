@@ -20,6 +20,11 @@ public class AeroSnap {
 	public final static int SNAP_TOP = 2;
 	public final static int SNAP_RIGHT = 3;
 	public final static int SNAP_BOTTOM = 4;
+	//4WAYMOD snaps
+	public final static int SNAP_TOPLEFT = 21;
+	public final static int SNAP_TOPRIGHT = 23;
+	public final static int SNAP_BOTTOMLEFT = 41;
+	public final static int SNAP_BOTTOMRIGHT = 43;
 	
 	public final static int UNKNOWN = -10000;
 	final static int MOVE_MAX_RANGE = 10;
@@ -123,8 +128,8 @@ public class AeroSnap {
 			lpp.width = mSnapParam[0];
 			lpp.height = mSnapParam[1];
 			lpp.gravity = mSnapParam[2];
-			lpp.x = (lpp.gravity == Gravity.RIGHT) ? (mScreenWidth / 2) : 0;
-			lpp.y = (lpp.gravity == Gravity.BOTTOM) ? (mScreenHeight / 2) : 0;
+			lpp.x = ((lpp.gravity & Gravity.RIGHT) == Gravity.RIGHT) ? (mScreenWidth / 2) : 0;
+			lpp.y = ((lpp.gravity & Gravity.BOTTOM) == Gravity.BOTTOM) ? (mScreenHeight / 2) : 0;
 			mWindow.setAttributes(lpp);
 			MultiWindowAppManager.appsSignalShowDragger(mContext, mSnap);
 			if (MovableWindow.mAeroSnapChangeTitleBarVisibility) {
@@ -180,8 +185,16 @@ public class AeroSnap {
 		}
 		mOldParam[0] = x;
 		mOldParam[1] = y;
-		
-		if (x < mRange) {
+		//4WAYMOD
+		if ((x < mRange)&&(y < mRange)) {
+			mSnap = SNAP_TOPLEFT;
+		} else if ((x > (mScreenWidth - mRange))&&(y < mRange)) {
+			mSnap = SNAP_TOPRIGHT;
+		} else if ((x < mRange)&&(y > (mScreenHeight - mRange))) {
+			mSnap = SNAP_BOTTOMLEFT;
+		} else if ((x > (mScreenWidth - mRange))&&(y > (mScreenHeight - mRange))) {
+			mSnap = SNAP_BOTTOMRIGHT;
+		} else if (x < mRange) {
 			mSnap = SNAP_LEFT;
 		} else if (x > (mScreenWidth - mRange)) {
 			mSnap = SNAP_RIGHT;
@@ -244,30 +257,51 @@ public class AeroSnap {
 	// create a snap positioning based on the range of our touch coordinates
 	private void calculateSnap() {
 		switch (mSnap) {
-		case SNAP_LEFT:
-			mSnapParam[0] = (mScreenWidth / 2) + 1;
-			mSnapParam[1] = ViewGroup.LayoutParams.MATCH_PARENT;
-			mSnapParam[2] = Gravity.TOP | Gravity.LEFT;
-			break;
-		case SNAP_RIGHT:
-			mSnapParam[0] = (mScreenWidth / 2) + 1;
-			mSnapParam[1] = ViewGroup.LayoutParams.MATCH_PARENT;
-			mSnapParam[2] = Gravity.RIGHT;
-			break;
-		case SNAP_TOP:
-			mSnapParam[0] = ViewGroup.LayoutParams.MATCH_PARENT;
-			mSnapParam[1] = (mScreenHeight / 2) + 1;
-			mSnapParam[2] = Gravity.TOP;
-			break;
-		case SNAP_BOTTOM:
-			mSnapParam[0] = ViewGroup.LayoutParams.MATCH_PARENT;
-			mSnapParam[1] = (mScreenHeight / 2) + 1;
-			mSnapParam[2] = Gravity.BOTTOM;
-			break;
-		case SNAP_NONE:
-			mSnapParam[0] = UNKNOWN;
-			mSnapParam[1] = UNKNOWN;
-			mSnapParam[2] = UNKNOWN;
+			case SNAP_LEFT:
+				mSnapParam[0] = (mScreenWidth / 2) + 1;
+				mSnapParam[1] = ViewGroup.LayoutParams.MATCH_PARENT;
+				mSnapParam[2] = Gravity.TOP | Gravity.LEFT;
+				break;
+			case SNAP_RIGHT:
+				mSnapParam[0] = (mScreenWidth / 2) + 1;
+				mSnapParam[1] = ViewGroup.LayoutParams.MATCH_PARENT;
+				mSnapParam[2] = Gravity.RIGHT;
+				break;
+			case SNAP_TOP:
+				mSnapParam[0] = ViewGroup.LayoutParams.MATCH_PARENT;
+				mSnapParam[1] = (mScreenHeight / 2) + 1;
+				mSnapParam[2] = Gravity.TOP;
+				break;
+			case SNAP_BOTTOM:
+				mSnapParam[0] = ViewGroup.LayoutParams.MATCH_PARENT;
+				mSnapParam[1] = (mScreenHeight / 2) + 1;
+				mSnapParam[2] = Gravity.BOTTOM;
+				break;
+			//4WAYMOD
+			case SNAP_TOPLEFT:
+				mSnapParam[0] = (mScreenWidth / 2) + 1;
+				mSnapParam[1] = (mScreenHeight / 2) + 1;
+				mSnapParam[2] = Gravity.TOP | Gravity.LEFT;
+				break;
+			case SNAP_TOPRIGHT:
+				mSnapParam[0] = (mScreenWidth / 2) + 1;
+				mSnapParam[1] = (mScreenHeight / 2) + 1;
+				mSnapParam[2] = Gravity.TOP | Gravity.RIGHT;
+				break;
+			case SNAP_BOTTOMLEFT:
+				mSnapParam[0] = (mScreenWidth / 2) + 1;
+				mSnapParam[1] = (mScreenHeight / 2) + 1;
+				mSnapParam[2] = Gravity.BOTTOM | Gravity.LEFT;
+				break;
+			case SNAP_BOTTOMRIGHT:
+				mSnapParam[0] = (mScreenWidth / 2) + 1;
+				mSnapParam[1] = (mScreenHeight / 2) + 1;
+				mSnapParam[2] = Gravity.BOTTOM | Gravity.RIGHT;
+				break;
+			case SNAP_NONE:
+				mSnapParam[0] = UNKNOWN;
+				mSnapParam[1] = UNKNOWN;
+				mSnapParam[2] = UNKNOWN;
 		}
 	}
 	
