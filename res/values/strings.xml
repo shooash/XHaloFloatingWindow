@@ -270,6 +270,10 @@
     <string name="dnm_snap_window_sub2">Snap (Bottom)</string>
     <string name="dnm_snap_window_sub3">Snap (Left)</string>
     <string name="dnm_snap_window_sub4">Snap (Right)</string>
+    <string name="dnm_snap_window_sub7">Snap (Bottom Left)</string>
+    <string name="dnm_snap_window_sub6">Snap (Top Right)</string>
+    <string name="dnm_snap_window_sub5">Snap (Top Left)</string>
+    <string name="dnm_snap_window_sub8">Snap (Bottom Right)</string>
     <string name="dnm_minimize_notif_title">Restore %1$s</string>
     <string name="dnm_minimize_notif_summary">This floating app has been minimized</string>
     

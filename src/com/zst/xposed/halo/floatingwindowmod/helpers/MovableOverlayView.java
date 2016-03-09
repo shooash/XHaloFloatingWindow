@@ -403,6 +403,11 @@ public class MovableOverlayView extends RelativeLayout {
 		final String menu_item4_sub2 = mResource.getString(R.string.dnm_snap_window_sub2);
 		final String menu_item4_sub3 = mResource.getString(R.string.dnm_snap_window_sub3);
 		final String menu_item4_sub4 = mResource.getString(R.string.dnm_snap_window_sub4);
+		//4WAYMOD
+		final String menu_item4_sub5 = mResource.getString(R.string.dnm_snap_window_sub5);
+		final String menu_item4_sub6 = mResource.getString(R.string.dnm_snap_window_sub6);
+		final String menu_item4_sub7 = mResource.getString(R.string.dnm_snap_window_sub7);
+		final String menu_item4_sub8 = mResource.getString(R.string.dnm_snap_window_sub8);
 
 		final PopupMenu popupMenu = new PopupMenu(mActivity, more_button);
 		final Menu menu = popupMenu.getMenu();
@@ -411,6 +416,11 @@ public class MovableOverlayView extends RelativeLayout {
 		menu.add(menu_item4_sub2);
 		menu.add(menu_item4_sub3);
 		menu.add(menu_item4_sub4);
+		//4WAYMOD
+		menu.add(menu_item4_sub5);
+		menu.add(menu_item4_sub6);
+		menu.add(menu_item4_sub7);
+		menu.add(menu_item4_sub8);
 		popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 			@Override
 			public boolean onMenuItemClick(MenuItem item) {
@@ -424,6 +434,16 @@ public class MovableOverlayView extends RelativeLayout {
 					mAeroSnap.forceSnap(AeroSnap.SNAP_LEFT);
 				} else if (item.getTitle().equals(menu_item4_sub4)) {
 					mAeroSnap.forceSnap(AeroSnap.SNAP_RIGHT);
+				}
+				//4WAYMOD
+				else if (item.getTitle().equals(menu_item4_sub5)) {
+					mAeroSnap.forceSnap(AeroSnap.SNAP_TOPLEFT);
+				} else if (item.getTitle().equals(menu_item4_sub6)) {
+					mAeroSnap.forceSnap(AeroSnap.SNAP_TOPRIGHT);
+				}else if (item.getTitle().equals(menu_item4_sub7)) {
+					mAeroSnap.forceSnap(AeroSnap.SNAP_BOTTOMLEFT);
+				} else if (item.getTitle().equals(menu_item4_sub8)) {
+					mAeroSnap.forceSnap(AeroSnap.SNAP_BOTTOMRIGHT);
 				}
 				return false;
 			}
