@@ -510,7 +510,7 @@ public class MovableWindow {
 						mAeroSnap.forceSnap(newsnap);
 						mPreviousRotation = newRotation;
 
-						WindowManager.LayoutParams paramz = window.getAttributes();
+						/*WindowManager.LayoutParams paramz = window.getAttributes();
 						final int old_x = paramz.x;
 						final int old_y = paramz.y;
 						final int old_height = paramz.height;
@@ -519,7 +519,7 @@ public class MovableWindow {
 						paramz.y = old_x;
 						paramz.width = old_height;
 						paramz.height = old_width;
-						window.setAttributes(paramz);
+						window.setAttributes(paramz);*/
 						mPreviousOrientation = config.orientation;
 					}
 					return;
