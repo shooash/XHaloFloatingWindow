@@ -62,7 +62,7 @@ public class XHFWService extends XHFWInterface.Stub {
 	}
 	
 	public static XHFWInterface retrieveService(Context context) {
-		try {
+	/*	try {
 			Object service = XposedHelpers.callStaticMethod(classSvcMgr, "getService",
 					new Class<?>[] { String.class }, SERVICE_NAME);
 			// ServiceManager.getService(SERVICE_NAME);
@@ -76,7 +76,8 @@ public class XHFWService extends XHFWInterface.Stub {
 					+ e.toString());
 			e.printStackTrace();
 			return null;
-		}
+		}*/
+		return null;
 	}
 	
 	/********************************************************************/

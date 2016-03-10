@@ -72,12 +72,12 @@ public class MainXposed implements IXposedHookLoadPackage, IXposedHookZygoteInit
 			XposedBridge.log(Common.LOG_TAG + "(MainXposed // SystemMods)");
 			XposedBridge.log(e);
 		}
-		try {
+		/*try {
 			XHFWService.initZygote(lpparam);
 		} catch (Throwable e) {
 			XposedBridge.log(Common.LOG_TAG + "(MainXposed // XHFWService)");
 			XposedBridge.log(e);
-		}
+		}*/
 		
 		// App
 		hookMovableWindow = new MovableWindow(this, lpparam);
