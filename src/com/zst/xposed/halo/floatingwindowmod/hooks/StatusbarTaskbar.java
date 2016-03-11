@@ -45,7 +45,7 @@ public class StatusbarTaskbar {
 		if (!lpp.packageName.equals("com.android.systemui")) return;
 		
 		if (mStatusBarApps == null)
-			mStatusBarApps = new XSharedPreferences(Common.THIS_PACKAGE_NAME,
+			mStatusBarApps = new XSharedPreferences(Common.THIS_MOD_PACKAGE_NAME,
 					Common.PREFERENCE_STATUSBAR_LAUNCHER_FILE);
 		
 		if (!main_pref.getBoolean(Common.KEY_STATUSBAR_TASKBAR_ENABLED, Common.DEFAULT_STATUSBAR_TASKBAR_ENABLED))
@@ -123,7 +123,7 @@ public class StatusbarTaskbar {
 		
 		clearNotifications(context, NOTIFICATION_ID_PINNED);
 		
-		RemoteViews view = new RemoteViews(Common.THIS_PACKAGE_NAME,
+		RemoteViews view = new RemoteViews(Common.THIS_MOD_PACKAGE_NAME,
 				R.layout.view_statusbar_taskbar_holder);
 		ArrayList<Map.Entry<String, ?>> sorted_entries = getPinnedApps();
 		int index = 100;
@@ -146,7 +146,7 @@ public class StatusbarTaskbar {
 		
 		clearNotifications(context, NOTIFICATION_ID_RUNNING);
 		
-		RemoteViews rview = new RemoteViews(Common.THIS_PACKAGE_NAME,
+		RemoteViews rview = new RemoteViews(Common.THIS_MOD_PACKAGE_NAME,
 				R.layout.view_statusbar_taskbar_holder);
 		int index = 200;
 		for (RunningTaskInfo item : mRunningAppsList) {
@@ -208,7 +208,7 @@ public class StatusbarTaskbar {
 		RemoteViews view;
 		
 		public AppIconButton(Context context, int id_number, String package_name) {
-			view = new RemoteViews(Common.THIS_PACKAGE_NAME,
+			view = new RemoteViews(Common.THIS_MOD_PACKAGE_NAME,
 					R.layout.view_statusbar_taskbar_icon);
 			
 			try {

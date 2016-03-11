@@ -8,7 +8,9 @@ import android.view.Gravity;
 public class Common {
 
 	/* Preference misc */
-	public static final String THIS_PACKAGE_NAME = Common.class.getPackage().getName();
+	//public static final String THIS_PACKAGE_NAME = Common.class.getPackage().getName();
+	public static final String THIS_PACKAGE_NAME = "com.zst.xposed.halo.floatingwindow";//To keep backwards compatibility we have to use old package name
+	public static final String THIS_MOD_PACKAGE_NAME = Common.class.getPackage().getName();
 	public static final String PREFERENCE_MAIN_FILE = THIS_PACKAGE_NAME + "_main";
 	public static final String PREFERENCE_BLACKLIST_FILE = THIS_PACKAGE_NAME + "_blacklist";
 	public static final String PREFERENCE_WHITELIST_FILE = THIS_PACKAGE_NAME + "_whitelist";

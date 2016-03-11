@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zst.xposed.halo.floatingwindowmod"
     android:installLocation="internalOnly"
-    android:versionCode="245"
-    android:versionName="2.45b" >
+    android:versionCode="246"
+    android:versionName="2.46b" >
 
     <uses-sdk
         android:minSdkVersion="14"

@@ -97,7 +97,7 @@ public class MovableOverlayView extends RelativeLayout {
 		 * since the layout is from the module, not the current app we are
 		 * modifying. thus, we use a parser */
 		try {
-			Context module_context = activity.createPackageContext(Common.THIS_PACKAGE_NAME,
+			Context module_context = activity.createPackageContext(Common.THIS_MOD_PACKAGE_NAME,
 					Context.CONTEXT_IGNORE_SECURITY);
 			LayoutInflater.from(module_context).inflate(R.layout.movable_window, this);
 		} catch (Exception e) {

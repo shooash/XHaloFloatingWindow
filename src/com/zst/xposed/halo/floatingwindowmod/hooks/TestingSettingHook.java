@@ -10,7 +10,7 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
 public class TestingSettingHook {
 	
 	public static void handleLoadPackage(LoadPackageParam lpp) {
-		if (lpp.packageName.equals(Common.THIS_PACKAGE_NAME)) {
+		if (lpp.packageName.equals(Common.THIS_MOD_PACKAGE_NAME)) {
 			Class<?> hookClass = XposedHelpers.findClass("com.zst.xposed.halo.floatingwindowmod.TestingActivity",
 					lpp.classLoader);
 			XposedBridge.hookAllMethods(hookClass, "initXposedLoaded", new XC_MethodHook() {
