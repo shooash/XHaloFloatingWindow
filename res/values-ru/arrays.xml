@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="option_floating_flags">
+        <item>Старый (0x2000)</item>
+        <item>Новый / Android 5+ (0x2001)</item>
+        <item>Omni/SlimRom (0x3000)</item>
+    </string-array>
+
+</resources>
