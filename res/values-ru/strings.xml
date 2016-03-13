@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">XHaloFloatingWindow</string>
-    <string name="app_description">Плавающие окна из Paranoid Android с настройками перемещения и изменения размеров.(zst123)</string>
+    <string name="app_name">XHFW MOD</string>
+    <string name="app_description">Плавающие окна из Paranoid Android с настройками перемещения и изменения размеров</string>
     <string name="app_blacklist">Черный список</string>
     <string name="app_whitelist">Белый список</string>
     <string name="app_testing">Тестирование</string>
@@ -42,8 +42,8 @@
     <string name="pref_behave_top_title">Свойства</string>
     <string name="pref_behave_top_summary">Настройка свойств всплывающих окон</string>
     <string name="pref_app_pause_title">Приостановка приложения</string>
-    <string name="pref_app_pause_summary_off">Не приостанавливать приложение под всплывающим окном</string>
-    <string name="pref_app_pause_summary_on">Приостанавливать приложение под всплывающим окном (По умолчанию)</string>
+    <string name="pref_app_pause_summary_off">Не приостанавливать приложение на заднем плане</string>
+    <string name="pref_app_pause_summary_on">Приостанавливать приложение на заднем плане</string>
     <string name="pref_keyboard_title">Режим клавиатуры</string>
     <string name="pref_keyboard_summary">Действие всплывающего окна при открытии клавиатуры.</string>
     <string name="pref_disable_auto_close_title">Отключить автозакрытие</string>
@@ -53,25 +53,27 @@
     <string name="pref_force_recents_title">Принудительно показывать в недавних</string>
     <string name="pref_force_recents_summary">Принудительный показ приложения в списке недавних.</string>	
     <string name="pref_force_open_app_above_halo_title">Принудительный запуск новых приложений</string>
-    <string name="pref_force_open_app_above_halo_summary">Если текущее приложение открыто во всплывающем окне, новые приложения будут так же открываться во всплывающих окнах.</string>
-    <string name="pref_blacklist_title">Приложения черного списка</string>
+    <string name="pref_force_open_app_above_halo_summary">Если текущее приложение открыто во всплывающем окне, новые приложения будут так же открываться в окнах.</string>
+    <string name="pref_blacklist_title">Черный список</string>
     <string name="pref_blacklist_summary">Список приложений, которые не будут запускаться во всплывающем режиме</string>
-    <string name="pref_blacklist_dialog">"Для вступления изменений в силу,помещенные в черный список приложения должны быть принудительно закрыты.
+    <string name="pref_blacklist_dialog">"Для вступления изменений в силу, помещенные в черный список приложения должны быть принудительно закрыты.
 
 Тапните по иконке приложения для открытия вкладки \"О приложении\". Затем нажмите \"Остановить\"."</string>
     <string name="pref_blacklist_error">"Ошибка открытия \"О приложении\".
 Ошибка.
 
 "</string>
-    <string name="pref_whitelist_title">Приложения белого списка</string>
+    <string name="pref_whitelist_title">Белый список</string>
     <string name="pref_whitelist_summary">Список приложений, которые будут запускаться во всплывающем режиме</string>
-    <string name="pref_whitelist_dialog">"Для вступления изменений в силу,помещенные в белый список приложения должны быть принудительно закрыты.
+    <string name="pref_whitelist_dialog">"Для вступления изменений в силу, помещенные в белый список приложения должны быть принудительно закрыты.
 
 Тапните по иконке приложения для открытия вкладки \"О приложении\". Затем нажмите \"Остановить\".
 
 Добавляя приложение в оба списка имейте ввиду, что у черного списка приоритет выше чем у белого."</string>
     <string name="pref_whiteblacklist_title">Опции белого/черного списков</string>
     <string name="pref_whiteblacklist_summary">Выберите предпочтения для использования черного и белого списков</string>
+    <string name="floating_flags">Системный флаг всплывающего окна</string>
+    <string name="floating_flags_summary">Флаг необходим для определения системой статуса приложения.\nВыберите старый тип флага для поддержки старых лаунчеров, при этом будет присутствовать баг в Google Chrome.\nПРИМЕЧАНИЕ: Для работы нового типа флага, Ваш лаунчер должен подерживать его.</string>
 	
     <!-- 4rd Preference Screen -->
     <string name="pref_movable_top_title">Перемещение и изменение размеров</string>
@@ -93,13 +95,17 @@
     <string name="pref_movable_titlebar_enabled_title">Включить панель заголовка</string>
     <string name="pref_movable_titlebar_enabled_summary">Показать строку заголовка вверху окна для его перетаскивания</string>
     <string name="pref_movable_titlebar_size_title">Размер панели заголовка</string>
-    <string name="pref_movable_titlebar_size_summary">Высота пнели заголовка</string>
-	<string name="pref_movable_titlebar_separator_enabled_title">Включить разделитель в панели заголовка</string>
-    <string name="pref_movable_titlebar_separator_enabled_summary">Показывать разделительную линию под панелью заголовка</string>
+    <string name="pref_movable_titlebar_size_summary">Высота панели заголовка</string>
+	<string name="pref_movable_titlebar_separator_enabled_title">Разделитель в панели заголовка</string>
+    <string name="pref_movable_titlebar_separator_enabled_summary">Отображение разделительной линии под панелью заголовка</string>
     <string name="pref_movable_titlebar_separator_size_title">Размер разделителя</string>
     <string name="pref_movable_titlebar_separator_size_summary">Толщина разделительной линии под панелью заголовка</string>
     <string name="pref_movable_titlebar_separator_color_title">Цвет разделительной линии</string>
     <string name="pref_movable_titlebar_separator_color_summary">Цвет разделительной линии под панелью заголовка</string>
+    <string name="pref_movable_titlebar_single_window_title">Объединение окон одного приложения</string>
+    <string name="pref_movable_titlebar_single_window_summary">При нажатии на кнопку закрытия, будут закрыты все окна данного приложнения.\n(Требуется Android 4.1 или выше)</string>
+    <string name="pref_movable_titlebar_max_hide_title">Скрытие панели заголовка развернутого окна</string>
+    <string name="pref_movable_titlebar_max_hide_summary">Не отображать панель заголовка когда окно развёрнуто на весь экран.</string>
     <string name="pref_movable_moving_start_pos_title">Сохранять положение окна при запуске</string>
     <string name="pref_movable_moving_start_pos_summary">Открыв новое окно того же самого приложения, разместить его в ту же самую позицию и размер оригинала</string>
     <string name="pref_movable_moving_move_pos_title">Постоянное положение окна</string>
@@ -108,16 +114,20 @@
     <string name="pref_movable_resizing_live_update_summary">"При изменении размеров окон их содержимое тоже будет обновляться.
 (Может ухудшить производительность)"</string>
     <string name="pref_movable_resizing_aero_snap_enabled_title">Захват окна</string>
-    <string name="pref_movable_resizing_aero_snap_enabled_summary">Перетащите окно к любым 4 краям экрана, чтобы изменить его размер соответственно этой части экрана, подобно эффекту Aero Snap в ОС Windows.</string>
+    <string name="pref_movable_resizing_aero_snap_enabled_summary">Перетащите окно краю экрана, чтобы изменить его размер соответственно этой части экрана, подобно эффекту Aero Snap в ОС Windows.</string>
     <string name="pref_movable_resizing_aero_snap_delay_title">Задержка захвата</string>
     <string name="pref_movable_resizing_aero_snap_delay_summary">Задержка в миллисекундах перед показом схемы захвата окна.</string>
     <string name="pref_movable_resizing_aero_snap_splitbar_title">Разделитель</string>
-    <string name="pref_movable_resizing_aero_snap_splitbar_summary">Когда 2 окна зафиксированы на правой и левой половинах экрана, показывать разделитель между ними для изменения размера.</string>
+    <string name="pref_movable_resizing_aero_snap_splitbar_summary">Показывать разделитель между окнами, зафиксированными у краёв экрана, для изменения размера.</string>
+	<string name="pref_movable_resizing_aero_snap_splitbar_color_title">Цвет разделителя</string>
+    <string name="pref_movable_resizing_aero_snap_splitbar_color_summary">Установка цвета разделительной линии</string>
     <string name="pref_movable_resizing_aero_snap_swipe_app_title">Переход к следующему приложению</string>
-    <string name="pref_movable_resizing_aero_snap_swipe_app_summary">Когда 2 или больше окна зафиксированы на одной стороне экрана, используйте свайп вправо или влево 2 пальцами, чтобы переключиться между ними.</string>
-    <string name="pref_movable_moving_move_ab_title">Разрешить использование верхней панели для перемещения</string>
+    <string name="pref_movable_resizing_aero_snap_swipe_app_summary">Когда на одной стороне экрана зафиксированы несколько окон, используйте свайп вправо или влево двумя пальцами, чтобы переключиться между ними.</string>
+	<string name="pref_movable_resizing_aero_snap_titlebar_hide_title">Скрытие панели заголовка при захвате окна</string>
+    <string name="pref_movable_resizing_aero_snap_titlebar_hide_summary">Показывать панель заголовка только когда окно не захвачено у края экрана.\n(Требуется включить опцию захвата окна)</string>
+    <string name="pref_movable_moving_move_ab_title">Использование верхней панели для перемещения окна</string>
     <string name="pref_movable_moving_move_ab_summary">Использовать верхнюю панель (или верхнюю область для приложений без верхней панели), для перемещений окна.</string>
-    <string name="pref_movable_triangle_enable_title">Показывать треугольник</string>
+    <string name="pref_movable_triangle_enable_title">Треугольник</string>
     <string name="pref_movable_triangle_enable_summary">Показывать треугольник в нижнем левом углу окна.</string>
     <string name="pref_movable_triangle_color_title">Цвет</string>
     <string name="pref_movable_triangle_color_summary" />
@@ -129,7 +139,7 @@
     <string name="pref_movable_triangle_sp_action_summary" />
     <string name="pref_movable_triangle_lp_action_title">Действие на длинное нажатие</string>
     <string name="pref_movable_triangle_lp_action_summary" />
-    <string name="pref_movable_quadrant_enable_title">Показывать сектор</string>
+    <string name="pref_movable_quadrant_enable_title">Сектор</string>
     <string name="pref_movable_quadrant_enable_summary">Показывать сектор в нижнем правом углу окна.</string>
     <string name="pref_movable_quadrant_color_title">Цвет</string>
     <string name="pref_movable_quadrant_color_summary" />
@@ -152,11 +162,11 @@
     <string name="pref_movable_border_thickness_title">Толщина</string>
     <string name="pref_movable_border_thickness_summary">Толщина границ в пикселях (по умолчанию 0)</string>
 	 <string name="pref_movable_others_minimize_to_statusbar_title">Свернуть в статусбар</string>
-    <string name="pref_movable_others_minimize_to_statusbar_summary">Показывать приложение в статусбаре когда оно свернуто.</string>
+    <string name="pref_movable_others_minimize_to_statusbar_summary">Показывать приложение в статусбаре когда оно свёрнуто.</string>
     <string name="pref_movable_others_tinted_title_enable_title">Оттенок панели заголовка</string>
     <string name="pref_movable_others_tinted_title_enable_summary">"Использовать цвет строки меню приложения для строки заголовка.
-Основано на  Tinted StatusBar by MohammadAG. 
-(Для применения эффекта необходимо принудительно закрыть приложение)"</string>
+Основано на Tinted StatusBar от MohammadAG. 
+(Для применения необходимо принудительно закрыть приложение)"</string>
     <string name="pref_movable_others_tinted_title_hsv_title">Максимальный HS [V] для черных иконок</string>
     <string name="pref_movable_others_tinted_title_hsv_summary">"Максимальный HS [V] перед автоматическим переключением к черным значкам 
 (Игнорируется, когда у строки меню есть пользовательский цвет текста),"</string>
@@ -190,7 +200,7 @@
     <string name="pref_recents_long_click_title">Длинное нажатие в недавних приложениях</string>
     <string name="pref_recents_long_click_summary">Добавляет опцию \"Открыть в окне\" на длинное нажатие элемента в недавних приложениях.</string>
     <string name="pref_systemui_restart_title">Перезапустить SystemUI</string>
-    <string name="pref_systemui_restart_summary">"Перезапустить для применения эффектов.
+    <string name="pref_systemui_restart_summary">"Перезапустить для применения изменений.
 (Необходим root)"</string>
 
     <!-- 6th Preference Screen -->
@@ -198,7 +208,7 @@
     <string name="pref_testing_top_summary">Тестирование открытия всплывающих окон</string>
     <string name="pref_testing_active_title">Модуль активирован!</string>
     <string name="pref_testing_active_subtitle">Вы можете запускать приложения в плавающих окнах.</string>
-    <string name="pref_testing_inactive_title">Модуль неактивирован</string>
+    <string name="pref_testing_inactive_title">Модуль не активирован</string>
     <string name="pref_testing_inactive_subtitle">"Вы не можете запускать приложения в плавающих окнах.
 
 Попытайтесь выключить и включить этот модуль в Xposed Installer после чего перезагрузите устройство.
@@ -209,15 +219,15 @@
     <string name="pref_testing_launch_xinstaller">Запустить в окне Xposed Installer</string>
     <string name="pref_testing_problem_title">Проблемы?</string>
     <string name="pref_testing_problem_subtitle">"Для помощи Вы можете посетить официальную ветку на XDA Developers.
-Перевод: MdC aka migel13"</string>
+Перевод: MdC aka migel13, Megakaban_"</string>
     <string name="pref_testing_launch_thread">Посетить ветку на XDA</string>
 	
 	
     <!-- Whitelist / Blacklist Options-->
     <string name="option_whiteblacklist_default">По умолчанию</string>
-    <string name="option_whiteblacklist_always_only">Открывать в окнах все приложения, кроме помещенных в черный список</string>
-    <string name="option_whiteblacklist_never_only">Открывать в окнах только приложения,помещенные в белый список</string>
-    <string name="option_whiteblacklist_never_all">Поместить в черный список все приложения, открывать в окнах только приложения помещенные в белый список</string>
+    <string name="option_whiteblacklist_always_only">Открывать в окнах все приложения, кроме приложений из черного списка</string>
+    <string name="option_whiteblacklist_never_only">Открывать в окнах только приложения из белого списка</string>
+    <string name="option_whiteblacklist_never_all">Поместить в черный список все приложения, открывать в окнах только приложения помещенные из белого списка</string>
 	
     <!-- Keyboard Mode -->
     <string name="keyboard_default">По умолчанию</string>
@@ -235,6 +245,16 @@
     <string name="option_gravity_8">Внизу по центру</string>
     <string name="option_gravity_9">Нижний правый угол</string>
 	
+	<!-- Title Bar Icon Chooser -->
+    <string name="tbic_functionality">Функционал</string>
+    <string name="tbic_theme">Внешний вид</string>
+    <string name="tbic_theme_none_t">Без панели</string>
+    <string name="tbic_theme_none_s">Скрыть панель заголовка</string>
+    <string name="tbic_theme_original_t">Оригинальные иконки</string>
+    <string name="tbic_theme_original_s">Иконки, используемые с первой версии</string>
+    <string name="tbic_theme_clearer_t">Альтернативные иконки</string>
+    <string name="tbic_theme_clearer_s">Автор: BachMinuetInG с XDA</string>
+	
     <!-- ColorPicker -->
     <string name="apply">Применить</string>
     <string name="arrow_symbol">➙</string>
@@ -249,9 +269,13 @@
     <string name="dnm_snap_window_sub2">Снизу</string>
     <string name="dnm_snap_window_sub3">Слева</string>
     <string name="dnm_snap_window_sub4">Справа</string>
+	<string name="dnm_snap_window_sub7">Снизу слева</string>
+    <string name="dnm_snap_window_sub6">Сверху справа</string>
+    <string name="dnm_snap_window_sub5">Сверху слева</string>
+    <string name="dnm_snap_window_sub8">Снизу справа</string>
     <string name="dnm_minimize">Свернуть приложение</string>
     <string name="dnm_minimize_notif_title">Восстановить %1$s</string>
-    <string name="dnm_minimize_notif_summary">Это приложение было свернуто</string>
+    <string name="dnm_minimize_notif_summary">Приложение было свёрнуто</string>
 	
     <!-- Notification Shade -->
     <string name="notif_open_halo">Открыть в окне</string>
@@ -273,6 +297,8 @@
     <string name="pref_statusbar_taskbar_enable_title">Панель запуска приложений</string>
     <string name="pref_statusbar_taskbar_running_enable_summary">Показывать запущеные приложения для быстрого переключения между ними\n (Требуется перезапуск SystemUI)</string>
     <string name="pref_statusbar_taskbar_running_enable_title">Показать запущеные приложения</string>
+	<string name="pref_statusbar_taskbar_hide_icon_summary">Не показывать иконку уведомления\n(Требуется перезапуск SystemUI)</string>
+    <string name="pref_statusbar_taskbar_hide_icon_title">Скрыть иконку</string>
     <string name="pref_statusbar_taskbar_pin_apps_summary">Выберите приложения, которые будут всегда показываться в панели задач строки состояния.</string>
     <string name="pref_statusbar_taskbar_pin_apps_title">Закреплённые приложения</string>
     <string name="pref_statusbar_taskbar_number_summary">Установить количество приложений,отображаемых в уведомлениях\n(Требуется перезапуск SystemUI)</string>
